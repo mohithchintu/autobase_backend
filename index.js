@@ -3,6 +3,9 @@ import connectDb from "./config/connectDB.js";
 import router from "./routes/routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { generateExpressCode } from "./helpers/code_generators/routes/javascript.js";
+import { generateGoCode } from "./helpers/code_generators/routes/go.js";
+import { generateDotNetCode } from "./helpers/code_generators/routes/dotnet.js";
 
 const app = express();
 
