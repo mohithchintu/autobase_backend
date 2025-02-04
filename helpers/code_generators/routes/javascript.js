@@ -1,4 +1,4 @@
-export const generateExpressCode = (method, path, func) => {
+export const javascript_route = (method, path, func) => {
   return `
   const express = require('express');
   const router = express.Router();

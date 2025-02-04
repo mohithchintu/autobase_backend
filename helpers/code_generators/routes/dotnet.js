@@ -1,4 +1,4 @@
-export const generateDotNetCode = (method, path, func) => {
+export const dotNet_route = (method, path, func) => {
   return `
   using Microsoft.AspNetCore.Mvc;
   

@@ -1,4 +1,4 @@
-export const generateGoCode = (method, path, func) => {
+export const go_route = (method, path, func) => {
   return `
   package main
   
@@ -6,11 +6,7 @@ export const generateGoCode = (method, path, func) => {
   
   func main() {
     r := gin.Default()
-    r.${method}("${path}", func(c *gin.Context) {
-      c.JSON(200, gin.H{
-        "message": "${func(response)}",
-      })
-    })
+    r.${method}("${path}", "${func}")
     r.Run()
   }
     `;
