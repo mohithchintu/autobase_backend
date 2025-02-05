@@ -1,8 +1,8 @@
 import express from "express";
-import { generete_code } from "../../controllers/generator/generator.controller.js";
+import { lang_init } from "../../controllers/generator/lang_init.controller.js";
 
-const admin_router = express.Router();
+const generator_router = express.Router();
 
-admin_router.post("/routes", generete_code);
+generator_router.post("/init", lang_init);
 
-export default admin_router;
+export default generator_router;
