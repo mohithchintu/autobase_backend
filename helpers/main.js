@@ -1,20 +1,41 @@
+import fs from "fs";
+import path from "path";
 import { dotNet_route } from "./code_generators/routes/dotnet.js";
 import { go_route } from "./code_generators/routes/go.js";
 import { javascript_route } from "./code_generators/routes/javascript.js";
 import { python_route } from "./code_generators/routes/python.js";
 
-export const route_generate = (req, res) => {
-  const { method, path, func, lang } = req.body;
+export const route_generate = ({ method, url_path, func, lang }) => {
+  let code = "";
+  let ext = "";
+
   switch (lang) {
     case "go":
-      res.status(200).json(go_route(method, path, func));
+      code = go_route(method, url_path, func);
+      ext = ".go";
+      break;
     case "javascript":
-      res.status(200).json(javascript_route(method, path, func));
+      code = javascript_route(method, url_path, func);
+      ext = ".js";
+      break;
     case "python":
-      res.status(200).json(python_route(method, path, func));
+      code = python_route(method, url_path, func);
+      ext = ".py";
+      break;
     case "dotnet":
-      res.status(200).json(dotNet_route(method, path, func));
+      code = dotNet_route(method, url_path, func);
+      ext = ".cs";
+      break;
     default:
-      return "Error: Language not supported";
+      throw new Error("Language not supported");
   }
+
+  const folderPath = "./codes/routes";
+  if (!fs.existsSync(folderPath)) {
+    fs.mkdirSync(folderPath, { recursive: true });
+  }
+
+  const filePath = path.join(folderPath, `route${ext}`);
+  fs.writeFileSync(filePath, code, "utf8");
+  return { msg: "File created successfully", path: filePath };
 };
